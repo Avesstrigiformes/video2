@@ -1,6 +1,9 @@
 from manim import *
 class Video(Scene): 
     def construct(self):
+
+        #define a cancel out function
+        
         def cancel(mob):
             return Line(mob.get_corner(UR), mob.get_corner(DL), color=RED)
 
@@ -14,9 +17,11 @@ class Video(Scene):
         rect.set_z_index(-1)
 
         c1 = Tex(r"Let's start with definitions:",color=RED).shift(UP*3)
-        definitions = [Tex(r"$F(x,y(x),y'(x))$ is a function whose inputs are functions").shift(DOWN),
-                       Tex(r"We want to find a $y(x)$ which should be an extremum of\\ $\int_{x_{1}}^{x_{2}}F(x,y(x),y'(x))dx$").shift(DOWN),
-                       Tex(r"By considering a general case,\\ we expect to find a nice equation for $y(x)$").shift(DOWN)]
+        definitions = [
+            Tex(r"$F(x,y(x),y'(x))$ is a function whose inputs are functions").shift(DOWN),
+            Tex(r"We want to find a $y(x)$ which should be an extremum of\\ $\int_{x_{1}}^{x_{2}}F(x,y(x),y'(x))dx$").shift(DOWN),
+            Tex(r"By considering a general case,\\ we expect to find a nice equation for $y(x)$").shift(DOWN)
+        ]
         temp = Tex(r"$F(x,y(x),y'(x))$ is a ",r"functional")
         m1 = Tex(r"Before the proof, I want to explain why it is useful to minimize $F$:\\ Principle of least action states that a particle moves the path of\\ function that minimizes the Lagrangian, which is also a functional.\\Thanks to this equation, we can find $y(x)$ that satisfies the conditions.",font_size=40,stroke_color=GOLD)
         t1_1 = MathTex(r"\text{Consider: }\bar{y}(x)=y(x)+\varepsilon\cdot\eta(x)",color=RED).shift(UP*3,LEFT*3.5).scale(0.9)
@@ -39,6 +44,7 @@ class Video(Scene):
         z = Tex(r"0", color=RED).move_to(r2[1][12:17])
         z2 = MathTex(r"\eta(x)", color=RED).move_to(r3[0][13:28])
         z3 = MathTex(r"\eta'(x)", color=RED).move_to(r3[0][37::])
+        
         f1 = MathTex(r"\frac{dI}{d\varepsilon}=\int_{x_{1}}^{x_{2}}\frac{dF}{d\varepsilon}dx")
         info = Tex(r"when $\varepsilon=0$").shift(DOWN)
         info2 = Tex(r"Since $\varepsilon=0,\bar{y}=y$")
@@ -65,7 +71,7 @@ class Video(Scene):
         self.play(Flash(t, line_length=0.5, num_lines=50, color=BLUE, flash_radius=1.1, time_width=0.5, run_time=2, rate_func = rush_from))
         self.play(FadeOut(PROBLEM), FadeOut(t), FadeOut(rect))
 
-        #main
+        #main 1
 
         self.play(Write(c1))
         already_shown = VGroup()
@@ -94,6 +100,9 @@ class Video(Scene):
         self.wait(1)
         self.play(FadeOut(t1_3[2]))
         self.play(FadeOut(t1_1,t1_1_5,t1_2))
+
+        #main 2
+        
         self.play(ReplacementTransform(t1_3_1,t1_4))
         self.play(Write(r1[0]))
         self.play(Write(r1[1]))
@@ -123,6 +132,9 @@ class Video(Scene):
         self.play(Create(line))
         self.play(DrawBorderThenFill(info3.next_to(f3,DOWN)))
         self.wait(2)
+
+        #conclusion
+        
         self.play(FadeOut(line,f3[0][20:40]))
         self.play(FadeOut(f3[0][:20],f3[0][40:46],info3,group_ibp[2][12::],group_ibp[1]),f3[0][46::].animate.move_to(group_ibp[2][12::].get_center()+RIGHT).set_color(RED),group_ibp[3].animate.shift(RIGHT*1.22),Transform(r4[0][17],MathTex("-", color=RED).move_to(r4[0][17])),run_time=3)
         self.play(f2.animate.scale(0),ReplacementTransform(group_arb,f4),run_time=3)
